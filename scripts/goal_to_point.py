@@ -10,7 +10,7 @@ from math import pow, atan2, sqrt
 from math import radians, degrees
 import sys
 import tf
-
+import math
 
 class ControlBot:
 
@@ -58,15 +58,15 @@ class ControlBot:
 
 
     def angular_vel(self, goal_pose, constant=15):
-        return constant * (self.steering_angle(goal_pose) - self.pose.theta)
+	goal_angle = self.steering_angle(goal_pose)
+	current_angle = math.fmod(self.pose.theta, 2*math.pi)
+        return constant * (math.fmod((goal_angle - current_angle + math.pi),(2 * math.pi)) - math.pi)
 
     def move2goal(self):
         """Mover hacia el objetivo"""
         goal_pose = Pose2D()
 
         # Get the input from the user.
-        #goal_pose.x = float(input("Establece punto x: "))
-        #goal_pose.y = float(input("Establece punto y: "))
         point_x, point_y = input("Ingrese las coordenadas separadas por coma  (x,y): ").split(",")
         goal_pose.x = float(point_x)
         goal_pose.y = float(point_y)
@@ -92,11 +92,11 @@ class ControlBot:
 
               print("v_lineal: ",velocidad_linear)
               print("v_angular: ",velocidad_angular)                 
-              print("pose x: ",self.pose.x)
-              print("pose y: ",self.pose.y)
-              print("pose obj x: ",goal_pose.x)
-              print("pose obj y: ",goal_pose.y)
-              print("angulo robot:",self.pose.theta)
+              print("pose actual x: ",self.pose.x)
+              print("pose actual y: ",self.pose.y)
+              print("pose objetivo x: ",goal_pose.x)
+              print("pose objetivo y: ",goal_pose.y)
+              print("angulo actual:",self.pose.theta)
               print("angulo objetivo:",self.steering_angle(goal_pose))
               print("distancia euclidiana:",self.euclidean_distance(goal_pose))
               print("--------------------------------------------------------")                 
