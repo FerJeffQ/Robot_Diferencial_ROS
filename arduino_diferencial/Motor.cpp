@@ -17,14 +17,14 @@ void Motor::rotate(int value) {
     //Max Voltage with 16V battery with 12V required
     //(12/16)*255 ~=190
     // OJO AQUI TRABAJO CON MAXIMO DE 5V ~= 90 PUEDEN CAMBIAR A SU ELECCION
-    int out = map(value, 0, 100, 0, 90);
+    int out = map(value, 0, 100, 0, 110);
     analogWrite(plus,out);
     analogWrite(minus,0);
   }else{
     //Max Voltage with 16V battery with 12V required
     //(12/16)*255 ~=190
     // OJO AQUI TRABAJO CON MAXIMO DE 5V ~= 90 PUEDEN CAMBIAR A SU ELECCION
-    int out = map(value, 0, -100, 0, 90);
+    int out = map(value, 0, -100, 0, 110);
     analogWrite(plus,0);
     analogWrite(minus,out);
   }
