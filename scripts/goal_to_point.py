@@ -58,8 +58,8 @@ class ControlBot:
 
 
     def angular_vel(self, goal_pose, constant=15):
-	goal_angle = self.steering_angle(goal_pose)
-	current_angle = math.fmod(self.pose.theta, 2*math.pi)
+        goal_angle = self.steering_angle(goal_pose)
+        current_angle = math.fmod(self.pose.theta, 2*math.pi)
         return constant * (math.fmod((goal_angle - current_angle + math.pi),(2 * math.pi)) - math.pi)
 
     def move2goal(self):
